@@ -25,7 +25,10 @@ SECRET_KEY = 'django-insecure-lnxl)r^b0ww@8*y%$0qif&aj^ac-lcjpvx09^un+roz!8e%371
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    '*'
+
+]
 
 
 # Application definition
@@ -73,9 +76,12 @@ TEMPLATES = [
     },
 ]
 
-CORS_ALLOWED_ORIGINS = [
-   "http://localhost:5173",   # React default port
-]
+# CORS_ALLOWED_ORIGINS = [
+#    "http://localhost:5173",   # React default port
+# ]
+
+CORS_ALLOW_ALL_ORIGINS = True
+DEBUG = False
 
 WSGI_APPLICATION = 'e_commerce.wsgi.application'
 
@@ -84,13 +90,17 @@ WSGI_APPLICATION = 'e_commerce.wsgi.application'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
 DATABASES = {
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.mysql',
+    #     'NAME': 'e_commerce', #database name
+    #     'USER': 'root', #replace with your Mysql username
+    #     'PASSWORD':'Vanaja@2004',
+    #     'HOST':'localhost', #or database host i.e running in my local system of port number 3306
+    #     'PORT':'3306' #Default Mysql port
+    # }
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'e_commerce', #database name
-        'USER': 'root', #replace with your Mysql username
-        'PASSWORD':'Vanaja@2004',
-        'HOST':'localhost', #or database host i.e running in my local system of port number 3306
-        'PORT':'3306' #Default Mysql port
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',  # #database name
     }
 }
 
@@ -129,6 +139,8 @@ REST_FRAMEWORK = {
     ],
 }
 
+STATIC_URL = '/static/'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 # Internationalization
 # https://docs.djangoproject.com/en/5.2/topics/i18n/
 

@@ -24,10 +24,7 @@ class Review(models.Model):
 
     def _str_(self):   # fixed typo
         return f"Review for {self.product.name} - {self.rating} stars"
-@receiver(post_save, sender='website.AuthUser')
-def create_auth_token(sender, instance=None, created=False, **kwargs):
-    if created:
-        Token.objects.create(user=instance)
+
 
 class AuthUser(AbstractUser):
     #Inherits all the fields and methods from AbstractUser
@@ -40,3 +37,8 @@ class AuthUser(AbstractUser):
     
     def __str__(self):
         return self.email
+
+@receiver(post_save, sender=AuthUser)
+def create_auth_token(sender, instance=None, created=False, **kwargs):
+    if created:
+        Token.objects.create(user=instance)
