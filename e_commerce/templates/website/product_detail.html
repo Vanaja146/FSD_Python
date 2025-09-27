@@ -1,0 +1,38 @@
+
+{% extends "website/base.html" %}
+{% load static %}
+{% block title %}{{ product.name }}{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center py-5">
+    <div class="col-md-8">
+        <div class="card shadow-sm">
+            <div class="row g-0">
+                <!-- Product Image -->
+                <div class="col-md-6">
+                    {% if product.image %}
+                        <img src="{{ product.image.url }}" class="img-fluid rounded-start" alt="{{ product.name }}">
+                    {% else %}
+                        <img src="{% static 'images/default.png' %}" class="img-fluid rounded-start" alt="Default Image">
+                    {% endif %}
+                </div>
+
+                <!-- Product Details -->
+                <div class="col-md-6">
+                    <div class="card-body">
+                        <h2 class="card-title mb-3">{{ product.name }}</h2>
+                        <p class="card-text mb-3">{{ product.description }}</p>
+                        <p class="card-text mb-3"><strong>Price:</strong> ${{ product.price }}</p>
+                        <p class="card-text mb-4"><strong>Stock:</strong> {{ product.stock }}</p>
+
+                        <form method="post" action="{% url 'add_to_cart' product.id %}">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-success w-100">Add to Cart</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
